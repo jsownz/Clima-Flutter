@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clima/services/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -23,8 +24,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getData() async {
+    String openWeatherApiKey = dotenv.env['OPENWEATHER_API_KEY'];
     http.Response response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=18d6128f930dd9573586bd9d50f151d3'));
+        'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=$openWeatherApiKey'));
     if (response.statusCode == 200) {
       String data = response.body;
       print(data);
